@@ -119,6 +119,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="13dp"
+        tools:itemCount="3"
         android:layout_marginBottom="-3dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
