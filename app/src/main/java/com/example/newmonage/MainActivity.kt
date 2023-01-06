@@ -78,8 +78,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getItem() {
-
-
         CoroutineScope(Dispatchers.Main).launch {
             val response = MonageApi.get(token = token, apiKey = apiKey)
             // clear list before adding so no data duplicated
@@ -101,7 +99,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateDashboard() {
-
         val saldo = findViewById<TextView>(R.id.saldo)
         val pemasukan = findViewById<TextView>(R.id.pemasukan)
         val pengeluaran = findViewById<TextView>(R.id.pengeluaran)
@@ -131,15 +128,22 @@ class MainActivity : AppCompatActivity() {
         oldTransactions = transactions
 
         CoroutineScope(Dispatchers.Main).launch{
-
-            val id = Random.nextInt(1, 99999)
-            MonageApi.delete(token = token, apiKey = apiKey, idQuery = "eq.$id" )
-
-            Toast.makeText(
-                applicationContext,
-                "Berhasil menghapus transaksi",
-                Toast.LENGTH_SHORT
-            ).show()
+            try {
+                // use deletedTransaction's id as the id
+                MonageApi.delete(token = token, apiKey = apiKey, idQuery = "eq.${deletedTransaction.id}" )
+                Toast.makeText(
+                    applicationContext,
+                    "Berhasil menghapus transaksi",
+                    Toast.LENGTH_SHORT
+                ).show()
+                getItem()
+            } catch (e: Exception) {
+                Toast.makeText(
+                    applicationContext,
+                    "Gagal menghapus transaksi",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }
