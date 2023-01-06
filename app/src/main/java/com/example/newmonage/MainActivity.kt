@@ -121,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         // put bundle to the intent as extras
         intent.putExtras(bundle)
         startActivity(intent)
+        getItem()
     }
 
     private fun deleteTransaction(transaction: Transaksi){
